@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "333693820358",
+    "project_id": "mody-ea553",
+    "storage_bucket": "mody-ea553.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333693820358:android:9740795e3611c6352926c7",
+        "android_client_info": {
+          "package_name": "com.example.mody_ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "333693820358-v87hl1hni1qdbnns7mc8ifmm8rgbt5mj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9yzCUDHQX-UYAf8dzr80DJvjx5W-WlEA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "333693820358-v87hl1hni1qdbnns7mc8ifmm8rgbt5mj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
