@@ -8,11 +8,18 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(30.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Image.asset('buyicon.png'),
+            Container(
+              width: 150,
+              height: 150,
+              child: const Image(
+                fit: BoxFit.fill,
+                image: AssetImage("assets/icons/buyIcon.png"),
+              ),
+            ),
             FormBuilder(
                 child: Column(
               children: [
@@ -23,9 +30,9 @@ class LoginView extends StatelessWidget {
                   ),
                 ),
                 FormBuilderTextField(
-                  name: 'email',
+                  name: 'password',
                   decoration: InputDecoration(
-                    hintText: "email",
+                    hintText: "password",
                   ),
                 )
               ],
