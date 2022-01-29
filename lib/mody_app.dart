@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:mody_ecommerce/app/app.router.dart';
 
@@ -10,6 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      builder: DevicePreview.appBuilder,
       title: 'Flutter Demo',
       navigatorKey: StackedService.navigatorKey,
       theme: ThemeData(
