@@ -4,26 +4,24 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:mody_ecommerce/Ui/screens/Login/login_view_model.dart';
+import 'package:mody_ecommerce/Ui/screens/Sign_up/Sign_up_view_model.dart';
 import 'package:mody_ecommerce/Ui/utilities/app_colors.dart';
 import 'package:mody_ecommerce/Ui/utilities/screen_sizes.dart';
 import 'package:mody_ecommerce/Ui/widgets/custom_text_field.dart';
 import 'package:stacked/stacked.dart';
 
-class LoginView extends StatelessWidget {
-  LoginView({Key? key}) : super(key: key);
+class SignUpView extends StatelessWidget {
+  SignUpView({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormBuilderState>();
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<LoginViewModel>.reactive(
-      viewModelBuilder: () => LoginViewModel(),
+    return ViewModelBuilder<SignUpViewModel>.reactive(
+      viewModelBuilder: () => SignUpViewModel(),
       builder: (context, model, child) => Scaffold(
         backgroundColor: backgroundColor,
         body: ModalProgressHUD(
-          progressIndicator: const CircularProgressIndicator(
-            backgroundColor: backgroundColor,
-          ),
           inAsyncCall: model.isLoading,
+          color: backgroundColor,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
             child: SingleChildScrollView(
@@ -65,6 +63,18 @@ class LoginView extends StatelessWidget {
                         child: Column(
                           children: [
                             Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              child: CustomFormField(
+                                hint: "Enter your name",
+                                name: "userName",
+                                keyboard: TextInputType.text,
+                                prefix: Icons.account_circle,
+                                validator: FormBuilderValidators.compose([
+                                  FormBuilderValidators.required(context),
+                                ]),
+                              ),
+                            ),
+                            Container(
                               margin:
                                   const EdgeInsets.only(top: 10, bottom: 10),
                               child: CustomFormField(
@@ -97,19 +107,19 @@ class LoginView extends StatelessWidget {
                               width: screenWidth(context),
                               child: TextButton(
                                 onPressed: () {
-                                  _formKey.currentState!.save();
-                                  if (_formKey.currentState!.validate()) {
+                                  _formKey.currentState?.save();
+                                  if (_formKey.currentState?.validate() ??
+                                      false) {
                                     final email =
                                         _formKey.currentState!.value['email'];
                                     final password = _formKey
                                         .currentState!.value['password'];
-
-                                    model.login(
+                                    model.signUp(
                                         email: email, password: password);
                                   }
                                 },
                                 child: Text(
-                                  "Login",
+                                  "Sign Up",
                                   style: GoogleFonts.poppins(
                                       fontSize: 18,
                                       color: Colors.white,
@@ -135,7 +145,7 @@ class LoginView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Dont Have An account ?",
+                        "Do Have An account ?",
                         style: GoogleFonts.poppins(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -143,10 +153,10 @@ class LoginView extends StatelessWidget {
                       ),
                       TextButton(
                           onPressed: () {
-                            model.navigateToSignUp();
+                            model.navigateToLogin();
                           },
                           child: Text(
-                            "Sign Up",
+                            "Login",
                             style: GoogleFonts.poppins(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,

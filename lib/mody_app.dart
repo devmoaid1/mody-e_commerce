@@ -1,5 +1,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:mody_ecommerce/app/app.router.dart';
 
 import 'package:stacked_services/stacked_services.dart';
@@ -18,6 +19,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      localizationsDelegates: const [
+        FormBuilderLocalizations.delegate,
+      ],
       onGenerateRoute: StackedRouter().onGenerateRoute,
     );
   }
