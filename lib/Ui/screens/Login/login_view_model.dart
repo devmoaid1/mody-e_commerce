@@ -10,10 +10,17 @@ class LoginViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _dialogService = locator<DialogService>();
   final _authService = locator<AuthService>();
+  final String? adminPassword = "admin123";
+  bool _isLoading = false; //loading state
+  bool _isAdmin = false; // user or admin identifier state
 
-  bool _isLoading = false;
-
+  bool get isAdmin => _isAdmin;
   bool get isLoading => _isLoading;
+
+  void setIsAdmin(bool value) {
+    _isAdmin = value;
+    notifyListeners();
+  }
 
   void changeLoading(bool value) {
     _isLoading = value;
@@ -25,19 +32,38 @@ class LoginViewModel extends BaseViewModel {
   void login({String? email, String? password}) async {
     setBusy(true);
     changeLoading(true);
-    try {
-      final result = await _authService.login(email: email, password: password);
 
-      setBusy(false);
-      changeLoading(false);
-      if (result.user!.uid != null) {
-        _dialogService.showDialog(title: result.user!.uid);
+    if (_isAdmin) {
+      if (password == adminPassword) {
+        try {
+          final result =
+              await _authService.login(email: email, password: password);
+
+          setBusy(false);
+          changeLoading(false);
+
+          _navigationService.navigateTo(Routes.adminHomePage);
+        } catch (e) {
+          changeLoading(false);
+          _dialogService.showDialog(title: e.toString());
+        }
+      } else {
+        changeLoading(false);
+        _dialogService.showDialog(title: "Something went wrong");
       }
-      log.i(
-        result.user!.uid,
-      );
-    } catch (e) {
-      _dialogService.showDialog(title: e.toString());
+    } else {
+      try {
+        final result =
+            await _authService.login(email: email, password: password);
+
+        setBusy(false);
+        changeLoading(false);
+
+        _navigationService.navigateTo(Routes.myHomePage);
+      } catch (e) {
+        changeLoading(false);
+        _dialogService.showDialog(title: e.toString());
+      }
     }
   }
 }

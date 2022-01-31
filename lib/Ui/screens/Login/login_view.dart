@@ -154,6 +154,43 @@ class LoginView extends StatelessWidget {
                           ))
                     ],
                   ),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: TextButton(
+                            onPressed: () {
+                              model.setIsAdmin(true);
+                            },
+                            child: Text(
+                              "I`m an Amin",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: model.isAdmin
+                                      ? backgroundColor
+                                      : Colors.white),
+                            )),
+                      ),
+                      Expanded(
+                        child: TextButton(
+                            onPressed: () {
+                              model.setIsAdmin(false);
+                            },
+                            child: Text(
+                              "I`m a User",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: model.isAdmin
+                                      ? Colors.white
+                                      : backgroundColor),
+                            )),
+                      )
+                    ],
+                  ),
                 ],
               ),
             ),

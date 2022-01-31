@@ -34,6 +34,7 @@ class SignUpViewModel extends BaseViewModel {
         result.user!.uid,
       );
     } catch (e) {
+      changeLoading(false);
       _dialogService.showDialog(title: e.toString());
     }
   }
