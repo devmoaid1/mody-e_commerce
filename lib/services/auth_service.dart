@@ -28,4 +28,13 @@ class AuthService {
       throw e.message.toString();
     }
   }
+
+  Future<void> logout() async {
+    try {
+      await _instance.signOut();
+    } on FirebaseAuthException catch (e) {
+      logger.e("error", e.message, e.stackTrace);
+      throw e.message.toString();
+    }
+  }
 }

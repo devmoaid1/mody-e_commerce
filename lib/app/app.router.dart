@@ -13,19 +13,28 @@ import 'package:stacked/stacked_annotations.dart';
 
 import '../Ui/screens/Login/login_view.dart';
 import '../Ui/screens/Sign_up/sign_up_view.dart';
+import '../Ui/screens/add_product/add_product.dart';
 import '../Ui/screens/admin_home/admin_home_view.dart';
+import '../Ui/screens/edit_product/edit_product.dart';
 import '../Ui/screens/home/home_view.dart';
+import '../Ui/screens/view_orders/view_orders.dart';
 
 class Routes {
   static const String loginView = '/';
   static const String myHomePage = '/my-home-page';
   static const String signUpView = '/sign-up-view';
   static const String adminHomePage = '/admin-home-page';
+  static const String addProductView = '/add-product-view';
+  static const String editProductView = '/edit-product-view';
+  static const String viewOrdersView = '/view-orders-view';
   static const all = <String>{
     loginView,
     myHomePage,
     signUpView,
     adminHomePage,
+    addProductView,
+    editProductView,
+    viewOrdersView,
   };
 }
 
@@ -37,6 +46,9 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.myHomePage, page: MyHomePage),
     RouteDef(Routes.signUpView, page: SignUpView),
     RouteDef(Routes.adminHomePage, page: AdminHomePage),
+    RouteDef(Routes.addProductView, page: AddProductView),
+    RouteDef(Routes.editProductView, page: EditProductView),
+    RouteDef(Routes.viewOrdersView, page: ViewOrdersView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -71,6 +83,24 @@ class StackedRouter extends RouterBase {
       );
       return CupertinoPageRoute<dynamic>(
         builder: (context) => AdminHomePage(key: args.key),
+        settings: data,
+      );
+    },
+    AddProductView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const AddProductView(),
+        settings: data,
+      );
+    },
+    EditProductView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const EditProductView(),
+        settings: data,
+      );
+    },
+    ViewOrdersView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const ViewOrdersView(),
         settings: data,
       );
     },

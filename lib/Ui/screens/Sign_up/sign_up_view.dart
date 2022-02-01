@@ -22,6 +22,9 @@ class SignUpView extends StatelessWidget {
         body: ModalProgressHUD(
           inAsyncCall: model.isLoading,
           color: backgroundColor,
+          progressIndicator: const CircularProgressIndicator(
+            color: backgroundColor,
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
             child: SingleChildScrollView(

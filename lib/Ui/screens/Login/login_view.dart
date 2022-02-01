@@ -21,7 +21,7 @@ class LoginView extends StatelessWidget {
         backgroundColor: backgroundColor,
         body: ModalProgressHUD(
           progressIndicator: const CircularProgressIndicator(
-            backgroundColor: backgroundColor,
+            color: backgroundColor,
           ),
           inAsyncCall: model.isLoading,
           child: Padding(

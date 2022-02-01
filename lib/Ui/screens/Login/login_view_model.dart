@@ -52,17 +52,22 @@ class LoginViewModel extends BaseViewModel {
         _dialogService.showDialog(title: "Something went wrong");
       }
     } else {
-      try {
-        final result =
-            await _authService.login(email: email, password: password);
-
-        setBusy(false);
+      if (_isAdmin == false && password == adminPassword) {
         changeLoading(false);
+        _dialogService.showDialog(title: "Something went wrong");
+      } else {
+        try {
+          final result =
+              await _authService.login(email: email, password: password);
 
-        _navigationService.navigateTo(Routes.myHomePage);
-      } catch (e) {
-        changeLoading(false);
-        _dialogService.showDialog(title: e.toString());
+          setBusy(false);
+          changeLoading(false);
+
+          _navigationService.navigateTo(Routes.myHomePage);
+        } catch (e) {
+          changeLoading(false);
+          _dialogService.showDialog(title: e.toString());
+        }
       }
     }
   }
