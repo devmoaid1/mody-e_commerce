@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mody_ecommerce/Ui/screens/admin_home/admin_viewModel.dart';
-import 'package:mody_ecommerce/Ui/utilities/app_colors.dart';
-import 'package:mody_ecommerce/Ui/utilities/screen_sizes.dart';
+
 import 'package:stacked/stacked.dart';
 
 class AdminHomePage extends StatelessWidget {
@@ -13,7 +12,7 @@ class AdminHomePage extends StatelessWidget {
     return ViewModelBuilder<AdminHomeViewModel>.nonReactive(
       viewModelBuilder: () => AdminHomeViewModel(),
       builder: (context, model, child) => Scaffold(
-        backgroundColor: Colors.grey[100],
+        backgroundColor: Color(0xFF222725),
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -22,7 +21,7 @@ class AdminHomePage extends StatelessWidget {
           title: Text(
             "Admin Home",
             style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w800, fontSize: 22, color: Colors.black),
+                fontWeight: FontWeight.w800, fontSize: 22, color: Colors.white),
           ),
         ),
         body: Padding(
@@ -37,11 +36,11 @@ class AdminHomePage extends StatelessWidget {
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w600,
                           fontSize: 22,
-                          color: Colors.black)),
+                          color: Colors.white)),
                 ),
                 GridView.count(
                   shrinkWrap: true,
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   crossAxisCount: 2,
                   childAspectRatio: 1.2,
                   mainAxisSpacing: 20,
@@ -76,7 +75,7 @@ class Logout extends ViewModelWidget<AdminHomeViewModel> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.logout,
               color: Colors.white,
               size: 50,

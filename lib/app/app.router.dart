@@ -13,7 +13,7 @@ import 'package:stacked/stacked_annotations.dart';
 
 import '../Ui/screens/Login/login_view.dart';
 import '../Ui/screens/Sign_up/sign_up_view.dart';
-import '../Ui/screens/add_product/add_product.dart';
+import '../Ui/screens/add_product/add_product_view.dart';
 import '../Ui/screens/admin_home/admin_home_view.dart';
 import '../Ui/screens/edit_product/edit_product.dart';
 import '../Ui/screens/home/home_view.dart';
@@ -87,8 +87,11 @@ class StackedRouter extends RouterBase {
       );
     },
     AddProductView: (data) {
+      var args = data.getArgs<AddProductViewArguments>(
+        orElse: () => AddProductViewArguments(),
+      );
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const AddProductView(),
+        builder: (context) => AddProductView(key: args.key),
         settings: data,
       );
     },
@@ -127,4 +130,10 @@ class SignUpViewArguments {
 class AdminHomePageArguments {
   final Key? key;
   AdminHomePageArguments({this.key});
+}
+
+/// AddProductView arguments holder class
+class AddProductViewArguments {
+  final Key? key;
+  AddProductViewArguments({this.key});
 }

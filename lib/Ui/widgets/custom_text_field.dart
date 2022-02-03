@@ -5,6 +5,9 @@ import 'package:mody_ecommerce/Ui/utilities/app_colors.dart';
 
 class CustomFormField extends StatelessWidget {
   final String? name;
+  final Color textColor;
+  final Color filledColor;
+  final Color hintColor;
   final FormFieldValidator<String>? validator;
   final bool obsecureText;
   final String hint;
@@ -15,6 +18,9 @@ class CustomFormField extends StatelessWidget {
 
   const CustomFormField(
       {Key? key,
+      this.hintColor = const Color(0xFFCDA872),
+      this.textColor = Colors.black,
+      this.filledColor = formFieldFillColor,
       this.keyboard,
       required this.hint,
       required this.name,
@@ -33,6 +39,10 @@ class CustomFormField extends StatelessWidget {
       readOnly: readOnly,
       initialValue: initialValue,
       validator: validator,
+      style: GoogleFonts.poppins(
+        color: textColor,
+        fontSize: 18,
+      ),
       decoration: InputDecoration(
         hintText: hint,
         errorStyle:
@@ -46,15 +56,14 @@ class CustomFormField extends StatelessWidget {
         focusedBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
             borderSide: BorderSide(color: Colors.white)),
-        hintStyle: const TextStyle(
-            color: Color(0xFFCDA872), fontWeight: FontWeight.w700),
+        hintStyle: TextStyle(color: hintColor, fontWeight: FontWeight.w700),
         enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
             borderSide: BorderSide(color: Colors.white)),
         disabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
             borderSide: BorderSide(color: Colors.white)),
-        fillColor: formFieldFillColor,
+        fillColor: filledColor,
         filled: true,
         prefixIcon: Icon(
           prefix,
