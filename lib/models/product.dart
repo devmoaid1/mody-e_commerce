@@ -4,6 +4,7 @@ part 'product.g.dart';
 //flutter pub run build_runner build --delete-conflicting-outputs
 @JsonSerializable()
 class Product {
+  final String? productId;
   final String? productName;
   final String? productDescription;
   final double? productPrice;
@@ -11,7 +12,8 @@ class Product {
   final String? category;
 
   Product(
-      {this.productName,
+      {this.productId,
+      this.productName,
       this.productPrice,
       this.productDescription,
       this.productLocation,

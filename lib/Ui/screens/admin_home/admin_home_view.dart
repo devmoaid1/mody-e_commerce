@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mody_ecommerce/Ui/screens/admin_home/admin_viewModel.dart';
+import 'package:mody_ecommerce/Ui/utilities/app_colors.dart';
+import 'package:mody_ecommerce/Ui/widgets/custom_appBar.dart';
 
 import 'package:stacked/stacked.dart';
 
@@ -12,18 +14,9 @@ class AdminHomePage extends StatelessWidget {
     return ViewModelBuilder<AdminHomeViewModel>.nonReactive(
       viewModelBuilder: () => AdminHomeViewModel(),
       builder: (context, model, child) => Scaffold(
-        backgroundColor: Color(0xFF222725),
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: Container(),
-          centerTitle: true,
-          title: Text(
-            "Admin Home",
-            style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w800, fontSize: 22, color: Colors.white),
-          ),
-        ),
+        backgroundColor: adminBackgroundColor,
+        appBar: modyAppBar(title: "Admin Home", leading: Container())
+            as PreferredSizeWidget,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
           child: ListView(
@@ -91,10 +84,7 @@ class Logout extends ViewModelWidget<AdminHomeViewModel> {
           ],
         ),
         decoration: BoxDecoration(
-            gradient: const LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [Colors.pink, Colors.orange]),
+            gradient: pinkOrange,
             boxShadow: <BoxShadow>[
               BoxShadow(
                   color: Colors.grey.withOpacity(0.3), //color of shadow
@@ -157,10 +147,7 @@ class ViewOrders extends ViewModelWidget<AdminHomeViewModel> {
           ],
         ),
         decoration: BoxDecoration(
-            gradient: const LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [Colors.purple, Colors.blue]),
+            gradient: purpleBlue,
             boxShadow: <BoxShadow>[
               BoxShadow(
                   color: Colors.grey.withOpacity(0.3), //color of shadow
@@ -220,10 +207,7 @@ class EditProduct extends ViewModelWidget<AdminHomeViewModel> {
           ],
         ),
         decoration: BoxDecoration(
-            gradient: const LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [Colors.purple, Colors.blue]),
+            gradient: purpleBlue,
             boxShadow: <BoxShadow>[
               BoxShadow(
                   color: Colors.grey.withOpacity(0.3), //color of shadow
@@ -283,10 +267,7 @@ class AddProduct extends ViewModelWidget<AdminHomeViewModel> {
           ],
         ),
         decoration: BoxDecoration(
-            gradient: const LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [Colors.deepPurpleAccent, Colors.lime]),
+            gradient: purpleLime,
             boxShadow: <BoxShadow>[
               BoxShadow(
                   color: Colors.grey.withOpacity(0.3), //color of shadow

@@ -1,3 +1,4 @@
+import 'package:logger/logger.dart';
 import 'package:mody_ecommerce/app/app.locator.dart';
 import 'package:mody_ecommerce/services/auth_service.dart';
 import 'package:mody_ecommerce/services/store_service.dart';
@@ -11,3 +12,7 @@ final navigationService = locator<NavigationService>();
 final dialogService = locator<DialogService>();
 final authService = locator<AuthService>();
 final storeService = locator<StoreService>();
+
+//logger
+
+final Logger logger = Logger();

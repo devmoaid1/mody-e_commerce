@@ -13,7 +13,7 @@ class AdminHomeViewModel extends BaseViewModel {
       _navigationService.navigateTo(Routes.addProductView);
 
   void navigateToEditProducts() =>
-      _navigationService.navigateTo(Routes.editProductView);
+      _navigationService.navigateTo(Routes.manageProductView);
 
   void navigateToViewOrders() =>
       _navigationService.navigateTo(Routes.viewOrdersView);
