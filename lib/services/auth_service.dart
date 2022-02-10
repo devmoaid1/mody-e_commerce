@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
+import 'package:mody_ecommerce/app/constants/constants.dart';
 
 class AuthService {
   final Logger logger = Logger();
@@ -36,5 +37,17 @@ class AuthService {
       logger.e("error", e.message, e.stackTrace);
       throw e.message.toString();
     }
+  }
+
+  User? getCurrentUser() {
+    User? currentUser;
+    _instance.authStateChanges().listen((user) {
+      currentUser = user;
+      logger.i(currentUser);
+    }).onError((err) {
+      logger.e(err.toString(), "error in getting current user");
+    });
+
+    return currentUser;
   }
 }

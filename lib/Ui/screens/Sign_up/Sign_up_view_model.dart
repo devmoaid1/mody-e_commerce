@@ -25,8 +25,8 @@ class SignUpViewModel extends BaseViewModel {
     setBusy(true);
     changeLoading(true);
     try {
-      final result =
-          await _authService.signUp(email: email, password: password);
+      final result = await _authService.signUp(
+          email: email!.trim(), password: password!.trim());
       setBusy(false);
       changeLoading(false);
       _dialogService.showDialog(title: result.user!.uid);
