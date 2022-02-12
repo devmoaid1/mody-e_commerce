@@ -3,8 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mody_ecommerce/Ui/screens/home/home_viewModel.dart';
 import 'package:mody_ecommerce/Ui/utilities/app_colors.dart';
 import 'package:mody_ecommerce/Ui/utilities/screen_sizes.dart';
-import 'package:mody_ecommerce/models/product.dart';
+import 'package:mody_ecommerce/app/constants/constants.dart';
+
 import 'package:stacked/stacked.dart';
+
+import 'widgets/jacket_view.dart';
+import 'widgets/product_view.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
@@ -32,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: (value) => model.setBottomIndex(value),
               elevation: 2,
               iconSize: 30,
-              items: [
+              items: const [
                 BottomNavigationBarItem(
                     icon: Icon(Icons.person), label: "Person"),
                 BottomNavigationBarItem(
@@ -97,12 +101,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            body: const TabBarView(
+            body: TabBarView(
               children: [
                 JacketView(),
-                Text("2"),
-                Text("3"),
-                Text("4"),
+                const ProductView(
+                  category: shoesCategory,
+                ),
+                const ProductView(
+                  category: tShirtsCategory,
+                ),
+                const ProductView(
+                  category: trousersCategory,
+                ),
               ],
             ),
           ),
@@ -115,96 +125,21 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Material(
+                    elevation: 0,
+                    borderOnForeground: false,
                     child: Text(
-                  "DISCOVER",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w700, fontSize: 25),
-                )),
-                Icon(Icons.shopping_cart)
+                      "DISCOVER",
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w700, fontSize: 25),
+                    )),
+                GestureDetector(
+                    onTap: () => model.navigateToCartScreen(),
+                    child: const Icon(Icons.shopping_cart))
               ],
             ),
           ),
         )
       ]),
     );
-  }
-}
-
-class JacketView extends ViewModelWidget<HomeViewModel> {
-  const JacketView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, HomeViewModel viewModel) {
-    return StreamBuilder<List<Product>>(
-        stream: viewModel.products,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final products = snapshot.data;
-            return GridView.builder(
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.63,
-                    crossAxisSpacing: 4,
-                    mainAxisSpacing: 8),
-                padding: EdgeInsets.symmetric(
-                    horizontal:
-                        screenWidthPercentage(context, percentage: 0.03),
-                    vertical:
-                        screenHeightPercentage(context, percentage: 0.03)),
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context, index) => Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(
-                            color: Colors.grey[400] as Color, width: 1),
-                        color: Colors.transparent,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: screenHeightPercentage(context,
-                                percentage: 0.27),
-                            width: screenWidth(context),
-                            child: Image(
-                              image: AssetImage(
-                                  products![index].productLocation.toString()),
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 8.0, top: 10, right: 5),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  products[index].productName.toString(),
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w800),
-                                ),
-                                Text(
-                                  "${products[index].productPrice.toString()}\$",
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ));
-          }
-
-          return const Center(
-              child: CircularProgressIndicator(
-            color: Colors.pink,
-          ));
-        });
   }
 }

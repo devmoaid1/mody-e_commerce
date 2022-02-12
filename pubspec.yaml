@@ -64,3 +64,6 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/images/jackets/
+    - assets/images/shoes/
+    - assets/images/t-shirts/
+    - assets/images/trousers/

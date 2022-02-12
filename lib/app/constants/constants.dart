@@ -1,4 +1,5 @@
 import 'package:logger/logger.dart';
+import 'package:mody_ecommerce/Ui/screens/product_details/product_details_viewModel.dart';
 import 'package:mody_ecommerce/app/app.locator.dart';
 import 'package:mody_ecommerce/services/auth_service.dart';
 import 'package:mody_ecommerce/services/store_service.dart';
@@ -13,6 +14,15 @@ final dialogService = locator<DialogService>();
 final authService = locator<AuthService>();
 final storeService = locator<StoreService>();
 
+//viewModels
+
+ProductDetailsViewModel productDetailsViewModel = ProductDetailsViewModel();
+
 //logger
 
 final Logger logger = Logger();
+
+const String jacketCategory = "jackets";
+const String shoesCategory = "shoes";
+const String tShirtsCategory = "T-shirts";
+const String trousersCategory = "trousers";

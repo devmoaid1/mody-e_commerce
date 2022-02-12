@@ -15,9 +15,11 @@ import '../Ui/screens/Login/login_view.dart';
 import '../Ui/screens/Sign_up/sign_up_view.dart';
 import '../Ui/screens/add_product/add_product_view.dart';
 import '../Ui/screens/admin_home/admin_home_view.dart';
+import '../Ui/screens/cart/cart_view.dart';
 import '../Ui/screens/edit_product/edit_product_view.dart';
 import '../Ui/screens/home/home_view.dart';
 import '../Ui/screens/manage_product/manage_product_view.dart';
+import '../Ui/screens/product_details/product_details_view.dart';
 import '../Ui/screens/view_orders/view_orders.dart';
 import '../models/product.dart';
 
@@ -30,6 +32,8 @@ class Routes {
   static const String manageProductView = '/manage-product-view';
   static const String editProductView = '/edit-product-view';
   static const String viewOrdersView = '/view-orders-view';
+  static const String productDetailsView = '/product-details-view';
+  static const String cartView = '/cart-view';
   static const all = <String>{
     loginView,
     myHomePage,
@@ -39,6 +43,8 @@ class Routes {
     manageProductView,
     editProductView,
     viewOrdersView,
+    productDetailsView,
+    cartView,
   };
 }
 
@@ -54,6 +60,8 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.manageProductView, page: ManageProductView),
     RouteDef(Routes.editProductView, page: EditProductView),
     RouteDef(Routes.viewOrdersView, page: ViewOrdersView),
+    RouteDef(Routes.productDetailsView, page: ProductDetailsView),
+    RouteDef(Routes.cartView, page: CartView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -124,6 +132,24 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    ProductDetailsView: (data) {
+      var args = data.getArgs<ProductDetailsViewArguments>(
+        orElse: () => ProductDetailsViewArguments(),
+      );
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => ProductDetailsView(
+          key: args.key,
+          product: args.product,
+        ),
+        settings: data,
+      );
+    },
+    CartView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const CartView(),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -160,4 +186,11 @@ class EditProductViewArguments {
   final Key? key;
   final Product? product;
   EditProductViewArguments({this.key, this.product});
+}
+
+/// ProductDetailsView arguments holder class
+class ProductDetailsViewArguments {
+  final Key? key;
+  final Product? product;
+  ProductDetailsViewArguments({this.key, this.product});
 }

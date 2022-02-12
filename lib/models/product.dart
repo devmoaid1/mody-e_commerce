@@ -10,9 +10,11 @@ class Product {
   final double? productPrice;
   final String? productLocation;
   final String? category;
+  int? productQuantity;
 
   Product(
-      {this.productId,
+      {this.productQuantity,
+      this.productId,
       this.productName,
       this.productPrice,
       this.productDescription,
