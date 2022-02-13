@@ -25,18 +25,19 @@ class CartView extends StatelessWidget {
           backgroundColor: Colors.grey[100],
           elevation: 1,
         ),
-        body: Provider<List<Product>?>.value(
-            value: productDetailsViewModel.cartItems,
-            builder: (context, model) => const CartList()));
+        body: ViewModelBuilder<ProductDetailsViewModel>.reactive(
+            viewModelBuilder: () => productDetailsViewModel,
+            disposeViewModel: false,
+            builder: (context, model, _) => const CartList()));
   }
 }
 
-class CartList extends ViewModelWidget<List<Product>?> {
+class CartList extends ViewModelWidget<ProductDetailsViewModel> {
   const CartList({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, List<Product>? viewModel) {
-    if (viewModel!.isEmpty) {
+  Widget build(BuildContext context, ProductDetailsViewModel viewModel) {
+    if (viewModel.cartItems!.isEmpty) {
       return Center(
           child: Text("Your Cart is Empty",
               style: GoogleFonts.poppins(
@@ -48,63 +49,96 @@ class CartList extends ViewModelWidget<List<Product>?> {
         children: [
           Expanded(
             child: ListView.builder(
-                itemCount: viewModel.length,
-                itemBuilder: (context, index) => Card(
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      child: Container(
-                        height:
-                            screenHeightPercentage(context, percentage: 0.15),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            CircleAvatar(
-                              radius: screenHeightPercentage(context,
-                                      percentage: 0.15) /
-                                  2,
-                              backgroundImage: AssetImage(
-                                  viewModel[index].productLocation.toString()),
-                            ),
-                            horizontalSpaceSmall,
-                            Expanded(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        viewModel[index].productName.toString(),
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        "${viewModel[index].productPrice} \$",
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey[400]),
-                                      ),
-                                    ],
-                                  ),
-                                  Text(
-                                    "${viewModel[index].productQuantity} ",
-                                    textAlign: TextAlign.right,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black),
-                                  ),
-                                ],
+                itemCount: viewModel.cartItems!.length,
+                itemBuilder: (context, index) => Dismissible(
+                      key: ObjectKey(viewModel.cartItems![index]),
+                      background: Container(
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.only(right: 20.0),
+                        color: Colors.red,
+                        child: const Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                      ),
+                      onDismissed: (direction) {
+                        viewModel.deleteCartItem(
+                            product: viewModel.cartItems![index]);
+                      },
+                      child: Card(
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Container(
+                          height:
+                              screenHeightPercentage(context, percentage: 0.15),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              CircleAvatar(
+                                radius: screenHeightPercentage(context,
+                                        percentage: 0.15) /
+                                    2,
+                                backgroundImage: AssetImage(viewModel
+                                    .cartItems![index].productLocation
+                                    .toString()),
                               ),
-                            ),
-                          ],
+                              horizontalSpaceSmall,
+                              Expanded(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          viewModel
+                                              .cartItems![index].productName
+                                              .toString(),
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          "${viewModel.cartItems![index].productPrice} \$",
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey[400]),
+                                        ),
+                                        Expanded(
+                                          child: GestureDetector(
+                                            onTap: () => viewModel.editProduct(
+                                                product: viewModel
+                                                    .cartItems![index]),
+                                            child: Text(
+                                              "Edit ",
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: backgroundColor),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      "${viewModel.cartItems![index].productQuantity} ",
+                                      textAlign: TextAlign.right,
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     )),

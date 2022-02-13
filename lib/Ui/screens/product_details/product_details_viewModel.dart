@@ -42,6 +42,28 @@ class ProductDetailsViewModel extends BaseViewModel {
     }
   }
 
+  void deleteCartItem({Product? product}) {
+    try {
+      _cartItems.remove(product);
+      notifyListeners();
+      dialogService.showDialog(title: "item deleted from cart");
+    } catch (err) {
+      logger.e(err.toString());
+    }
+  }
+
+  void editProduct({Product? product}) {
+    try {
+      navigationService.back();
+      _cartItems.remove(product);
+      notifyListeners();
+      navigationService.navigateTo(Routes.productDetailsView,
+          arguments: ProductDetailsViewArguments(product: product));
+    } catch (err) {
+      logger.e(err.toString());
+    }
+  }
+
   void add() {
     _quantity++;
     notifyListeners();
