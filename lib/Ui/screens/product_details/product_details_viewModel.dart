@@ -23,10 +23,20 @@ class ProductDetailsViewModel extends BaseViewModel {
 
   void addToCart({Product? product, int? quantity}) {
     product!.productQuantity = quantity;
+
+    bool isExist = false;
     try {
-      _cartItems.add(product);
-      notifyListeners();
-      dialogService.showDialog(title: "Item Added to cart");
+      if (_cartItems.contains(product)) {
+        isExist = true;
+      }
+
+      if (isExist) {
+        dialogService.showDialog(title: "item is already on cart");
+      } else {
+        _cartItems.add(product);
+        notifyListeners();
+        dialogService.showDialog(title: "item Added to the cart");
+      }
     } catch (err) {
       dialogService.showDialog(title: err.toString());
     }
