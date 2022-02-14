@@ -1,15 +1,15 @@
 import 'package:logger/logger.dart';
+import 'package:mody_ecommerce/Ui/widgets/setup_custom_dialog.dart';
 import 'package:mody_ecommerce/app/app.locator.dart';
 import 'package:mody_ecommerce/app/app.router.dart';
+import 'package:mody_ecommerce/app/constants/constants.dart';
 import 'package:mody_ecommerce/services/auth_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class LoginViewModel extends BaseViewModel {
   Logger log = Logger();
-  final _navigationService = locator<NavigationService>();
-  final _dialogService = locator<DialogService>();
-  final _authService = locator<AuthService>();
+
   final String? adminPassword = "admin123";
   bool _isLoading = false; //loading state
   bool _isAdmin = false; // user or admin identifier state
@@ -27,7 +27,7 @@ class LoginViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void navigateToSignUp() => _navigationService.navigateTo(Routes.signUpView);
+  void navigateToSignUp() => navigationService.navigateTo(Routes.signUpView);
 
   void login({String? email, String? password}) async {
     setBusy(true);
@@ -37,36 +37,47 @@ class LoginViewModel extends BaseViewModel {
       if (password == adminPassword) {
         try {
           final result =
-              await _authService.login(email: email, password: password);
+              await authService.login(email: email, password: password);
 
           setBusy(false);
           changeLoading(false);
 
-          _navigationService.navigateTo(Routes.adminHomePage);
+          navigationService.navigateTo(Routes.adminHomePage);
         } catch (e) {
           changeLoading(false);
-          _dialogService.showDialog(title: e.toString());
+          dialogService.showCustomDialog(
+              variant: DialogType.basic,
+              title: e.toString(),
+              mainButtonTitle: "ok");
         }
       } else {
         changeLoading(false);
-        _dialogService.showDialog(title: "Something went wrong");
+        dialogService.showCustomDialog(
+            variant: DialogType.basic,
+            title: "something went wrong",
+            mainButtonTitle: "ok");
       }
     } else {
       if (_isAdmin == false && password == adminPassword) {
         changeLoading(false);
-        _dialogService.showDialog(title: "Something went wrong");
+        dialogService.showCustomDialog(
+            variant: DialogType.basic,
+            title: "something went wrong",
+            mainButtonTitle: "ok");
       } else {
         try {
-          final result =
-              await _authService.login(email: email, password: password);
+          await authService.login(email: email, password: password);
 
           setBusy(false);
           changeLoading(false);
 
-          _navigationService.navigateTo(Routes.myHomePage);
+          navigationService.navigateTo(Routes.myHomePage);
         } catch (e) {
           changeLoading(false);
-          _dialogService.showDialog(title: e.toString());
+          dialogService.showCustomDialog(
+              variant: DialogType.basic,
+              title: e.toString(),
+              mainButtonTitle: "ok");
         }
       }
     }

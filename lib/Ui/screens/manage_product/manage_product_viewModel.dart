@@ -1,3 +1,4 @@
+import 'package:mody_ecommerce/Ui/widgets/setup_custom_dialog.dart';
 import 'package:mody_ecommerce/app/app.router.dart';
 import 'package:mody_ecommerce/app/constants/constants.dart';
 import 'package:mody_ecommerce/models/product.dart';
@@ -42,11 +43,17 @@ class ManageProductViewModel extends BaseViewModel {
       storeService.deleteProduct(id: id);
       setBusy(false);
       navigationService.back();
-      dialogService.showDialog(title: "successfully deleted Product");
+      dialogService.showCustomDialog(
+          variant: DialogType.basic,
+          title: "Deleted Product !",
+          mainButtonTitle: "ok");
     } catch (err) {
       setBusy(false);
       logger.e(err.toString());
-      dialogService.showDialog(title: err.toString());
+      dialogService.showCustomDialog(
+          variant: DialogType.basic,
+          title: err.toString(),
+          mainButtonTitle: "ok");
     }
   }
 }

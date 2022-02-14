@@ -15,9 +15,11 @@ class CustomFormField extends StatelessWidget {
   final String? initialValue;
   final bool readOnly;
   final TextInputType? keyboard;
+  final Function(String?)? onChanged;
 
   const CustomFormField(
       {Key? key,
+      this.onChanged,
       this.hintColor = const Color(0xFFCDA872),
       this.textColor = Colors.black,
       this.filledColor = formFieldFillColor,
@@ -34,6 +36,7 @@ class CustomFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
+      onChanged: onChanged,
       name: name.toString(),
       obscureText: obsecureText,
       readOnly: readOnly,

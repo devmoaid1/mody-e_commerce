@@ -7,6 +7,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 //firestore collections
 const String productCollection = "products";
+const String ordersCollection = "orders";
 
 //services instances
 final navigationService = locator<NavigationService>();

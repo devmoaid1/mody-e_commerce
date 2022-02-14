@@ -1,33 +1,33 @@
+import 'package:mody_ecommerce/Ui/widgets/setup_custom_dialog.dart';
 import 'package:mody_ecommerce/app/app.locator.dart';
 import 'package:mody_ecommerce/app/app.router.dart';
+import 'package:mody_ecommerce/app/constants/constants.dart';
 import 'package:mody_ecommerce/services/auth_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class AdminHomeViewModel extends BaseViewModel {
-  final _navigationService = locator<NavigationService>();
-  final _authService = locator<AuthService>();
-  final _dialogService = locator<DialogService>();
-
   void navigateToAddProducts() =>
-      _navigationService.navigateTo(Routes.addProductView);
+      navigationService.navigateTo(Routes.addProductView);
 
   void navigateToEditProducts() =>
-      _navigationService.navigateTo(Routes.manageProductView);
+      navigationService.navigateTo(Routes.manageProductView);
 
   void navigateToViewOrders() =>
-      _navigationService.navigateTo(Routes.viewOrdersView);
+      navigationService.navigateTo(Routes.viewOrdersView);
 
   void logout() async {
     setBusy(true);
     try {
-      await _authService.logout();
+      await authService.logout();
       setBusy(false);
-      _navigationService.replaceWith(Routes.loginView);
-      _dialogService.showDialog(title: "Logout success !");
+      navigationService.replaceWith(Routes.loginView);
     } catch (e) {
       setBusy(false);
-      _dialogService.showDialog(title: e.toString());
+      await dialogService.showCustomDialog(
+          variant: DialogType.basic,
+          title: e.toString(),
+          mainButtonTitle: "ok");
     }
   }
 }

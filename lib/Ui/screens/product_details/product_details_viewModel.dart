@@ -1,5 +1,7 @@
+import 'package:mody_ecommerce/Ui/widgets/setup_custom_dialog.dart';
 import 'package:mody_ecommerce/app/app.router.dart';
 import 'package:mody_ecommerce/app/constants/constants.dart';
+import 'package:mody_ecommerce/models/order.dart';
 import 'package:mody_ecommerce/models/product.dart';
 import 'package:stacked/stacked.dart';
 
@@ -31,14 +33,24 @@ class ProductDetailsViewModel extends BaseViewModel {
       }
 
       if (isExist) {
-        dialogService.showDialog(title: "item is already on cart");
+        dialogService.showCustomDialog(
+            variant: DialogType.basic,
+            title: "Item is Already on cart",
+            mainButtonTitle: "ok");
       } else {
         _cartItems.add(product);
         notifyListeners();
-        dialogService.showDialog(title: "item Added to the cart");
+        dialogService.showCustomDialog(
+            variant: DialogType.basic,
+            title: "Item is added to cart",
+            mainButtonTitle: "ok");
       }
     } catch (err) {
-      dialogService.showDialog(title: err.toString());
+      logger.e(err.toString());
+      dialogService.showCustomDialog(
+          variant: DialogType.basic,
+          title: "something went wrong",
+          mainButtonTitle: "ok");
     }
   }
 
@@ -46,7 +58,10 @@ class ProductDetailsViewModel extends BaseViewModel {
     try {
       _cartItems.remove(product);
       notifyListeners();
-      dialogService.showDialog(title: "item deleted from cart");
+      dialogService.showCustomDialog(
+          variant: DialogType.basic,
+          title: "Item Deleted from cart",
+          mainButtonTitle: "ok");
     } catch (err) {
       logger.e(err.toString());
     }
@@ -54,6 +69,7 @@ class ProductDetailsViewModel extends BaseViewModel {
 
   void editProduct({Product? product}) {
     try {
+      resetQuantity(); // reset quantity to 1 before going back
       navigationService.back();
       _cartItems.remove(product);
       notifyListeners();
@@ -61,6 +77,33 @@ class ProductDetailsViewModel extends BaseViewModel {
           arguments: ProductDetailsViewArguments(product: product));
     } catch (err) {
       logger.e(err.toString());
+    }
+  }
+
+  int calculateTotalPrice({List<Product>? products}) {
+    int total = 0;
+    products!.forEach((element) {
+      total += element.productQuantity! * element.productPrice!.toInt();
+    });
+    return total;
+  }
+
+  void placeOrder({Order? order, List<Product>? products}) {
+    setBusy(true);
+    try {
+      storeService.storeOrders(order: order, products: products);
+      setBusy(false);
+      navigationService.back();
+      dialogService.showCustomDialog(
+          variant: DialogType.basic,
+          title: "Order Succes !",
+          mainButtonTitle: "ok");
+    } catch (e) {
+      logger.e(e.toString());
+      dialogService.showCustomDialog(
+          variant: DialogType.basic,
+          title: "something Wrong happened",
+          mainButtonTitle: "ok");
     }
   }
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:logger/logger.dart';
+
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:mody_ecommerce/Ui/screens/Login/login_view_model.dart';
 import 'package:mody_ecommerce/Ui/utilities/app_colors.dart';
