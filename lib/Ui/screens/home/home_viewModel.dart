@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mody_ecommerce/Ui/widgets/setup_custom_dialog.dart';
 import 'package:mody_ecommerce/app/app.router.dart';
 import 'package:mody_ecommerce/app/constants/constants.dart';
 import 'package:mody_ecommerce/models/product.dart';
@@ -71,6 +72,21 @@ class HomeViewModel extends BaseViewModel {
     } catch (err) {
       setBusy(false);
       logger.e(err.toString());
+    }
+  }
+
+  void logout() async {
+    setBusy(true);
+    try {
+      await authService.logout();
+      setBusy(false);
+      navigationService.replaceWith(Routes.loginView);
+    } catch (e) {
+      setBusy(false);
+      await dialogService.showCustomDialog(
+          variant: DialogType.basic,
+          title: e.toString(),
+          mainButtonTitle: "ok");
     }
   }
 }

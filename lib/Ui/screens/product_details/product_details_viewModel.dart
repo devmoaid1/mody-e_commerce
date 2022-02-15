@@ -91,7 +91,7 @@ class ProductDetailsViewModel extends BaseViewModel {
   void placeOrder({Order? order, List<Product>? products}) {
     setBusy(true);
     try {
-      storeService.storeOrders(order: order, products: products);
+      orderService.storeOrders(order: order, products: products);
       setBusy(false);
       navigationService.back();
       dialogService.showCustomDialog(

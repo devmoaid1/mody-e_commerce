@@ -18,15 +18,16 @@ class LoginView extends StatelessWidget {
     return ViewModelBuilder<LoginViewModel>.reactive(
       viewModelBuilder: () => LoginViewModel(),
       builder: (context, model, child) => Scaffold(
+        resizeToAvoidBottomInset: true,
         backgroundColor: backgroundColor,
         body: ModalProgressHUD(
           progressIndicator: const CircularProgressIndicator(
             color: backgroundColor,
           ),
           inAsyncCall: model.isLoading,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: SingleChildScrollView(
+          child: ListView(children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -59,75 +60,71 @@ class LoginView extends StatelessWidget {
                   ),
 
                   //form
-                  Container(
-                    child: FormBuilder(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            Container(
-                              margin:
-                                  const EdgeInsets.only(top: 10, bottom: 10),
-                              child: CustomFormField(
-                                hint: "Enter your Email",
-                                name: "email",
-                                keyboard: TextInputType.emailAddress,
-                                prefix: Icons.email,
-                                validator: FormBuilderValidators.compose([
-                                  FormBuilderValidators.required(context),
-                                  FormBuilderValidators.email(context)
-                                ]),
-                              ),
+                  FormBuilder(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(top: 10, bottom: 10),
+                            child: CustomFormField(
+                              hint: "Enter your Email",
+                              name: "email",
+                              keyboard: TextInputType.emailAddress,
+                              prefix: Icons.email,
+                              validator: FormBuilderValidators.compose([
+                                FormBuilderValidators.required(context),
+                                FormBuilderValidators.email(context)
+                              ]),
                             ),
-                            Container(
-                              margin: const EdgeInsets.only(bottom: 10),
-                              child: CustomFormField(
-                                hint: "Enter your password",
-                                name: "password",
-                                obsecureText: true,
-                                prefix: Icons.lock,
-                                validator: FormBuilderValidators.compose([
-                                  FormBuilderValidators.required(context),
-                                ]),
-                              ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 10),
+                            child: CustomFormField(
+                              hint: "Enter your password",
+                              name: "password",
+                              obsecureText: true,
+                              prefix: Icons.lock,
+                              validator: FormBuilderValidators.compose([
+                                FormBuilderValidators.required(context),
+                              ]),
                             ),
-                            SizedBox(
-                              height: screenHeight(context) * 0.05,
-                            ),
-                            Container(
-                              width: screenWidth(context),
-                              child: TextButton(
-                                onPressed: () {
-                                  _formKey.currentState!.save();
-                                  if (_formKey.currentState!.validate()) {
-                                    final email =
-                                        _formKey.currentState!.value['email'];
-                                    final password = _formKey
-                                        .currentState!.value['password'];
+                          ),
+                          SizedBox(
+                            height: screenHeight(context) * 0.05,
+                          ),
+                          Container(
+                            width: screenWidth(context),
+                            child: TextButton(
+                              onPressed: () {
+                                _formKey.currentState!.save();
+                                if (_formKey.currentState!.validate()) {
+                                  final email =
+                                      _formKey.currentState!.value['email'];
+                                  final password =
+                                      _formKey.currentState!.value['password'];
 
-                                    model.login(
-                                        email: email, password: password);
-                                  }
-                                },
-                                child: Text(
-                                  "Login",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 18,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                style: TextButton.styleFrom(
-                                  padding: const EdgeInsets.all(10.0),
-                                  primary: Colors.black,
-                                  backgroundColor: Colors.black,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
+                                  model.login(email: email, password: password);
+                                }
+                              },
+                              child: Text(
+                                "Login",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              style: TextButton.styleFrom(
+                                padding: const EdgeInsets.all(10.0),
+                                primary: Colors.black,
+                                backgroundColor: Colors.black,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
                               ),
-                            )
-                          ],
-                        )),
-                  ),
+                            ),
+                          )
+                        ],
+                      )),
                   SizedBox(
                     height: screenHeight(context) * 0.05,
                   ),
@@ -194,7 +191,7 @@ class LoginView extends StatelessWidget {
                 ],
               ),
             ),
-          ),
+          ]),
         ),
       ),
     );

@@ -132,9 +132,21 @@ class _MyHomePageState extends State<MyHomePage> {
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w700, fontSize: 25),
                     )),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                          onTap: () => model.navigateToCartScreen(),
+                          child: Container(
+                              margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                              child: const Icon(Icons.shopping_cart))),
+                    ],
+                  ),
+                ),
                 GestureDetector(
-                    onTap: () => model.navigateToCartScreen(),
-                    child: const Icon(Icons.shopping_cart))
+                    onTap: () => model.logout(),
+                    child: const Icon(Icons.logout))
               ],
             ),
           ),

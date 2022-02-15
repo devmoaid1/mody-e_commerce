@@ -5,9 +5,10 @@ part 'order.g.dart';
 @JsonSerializable()
 class Order {
   final String? address;
+  final String? orderId;
   int? totalPrice;
 
-  Order({this.address, this.totalPrice});
+  Order({this.address, this.totalPrice, this.orderId});
 
   factory Order.fromJson(Map<String, dynamic> data) => _$OrderFromJson(data);
   Map<String, dynamic> toJson() => _$OrderToJson(this);

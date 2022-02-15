@@ -25,7 +25,7 @@ class AdminHomeViewModel extends BaseViewModel {
     } catch (e) {
       setBusy(false);
       await dialogService.showCustomDialog(
-          variant: DialogType.basic,
+          variant: DialogType.admin,
           title: e.toString(),
           mainButtonTitle: "ok");
     }

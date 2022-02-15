@@ -44,14 +44,14 @@ class ManageProductViewModel extends BaseViewModel {
       setBusy(false);
       navigationService.back();
       dialogService.showCustomDialog(
-          variant: DialogType.basic,
+          variant: DialogType.admin,
           title: "Deleted Product !",
           mainButtonTitle: "ok");
     } catch (err) {
       setBusy(false);
       logger.e(err.toString());
       dialogService.showCustomDialog(
-          variant: DialogType.basic,
+          variant: DialogType.admin,
           title: err.toString(),
           mainButtonTitle: "ok");
     }

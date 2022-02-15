@@ -19,8 +19,9 @@ import '../Ui/screens/cart/cart_view.dart';
 import '../Ui/screens/edit_product/edit_product_view.dart';
 import '../Ui/screens/home/home_view.dart';
 import '../Ui/screens/manage_product/manage_product_view.dart';
+import '../Ui/screens/order_details/order_details_view.dart';
 import '../Ui/screens/product_details/product_details_view.dart';
-import '../Ui/screens/view_orders/view_orders.dart';
+import '../Ui/screens/view_orders/view_orders_view.dart';
 import '../models/product.dart';
 
 class Routes {
@@ -34,6 +35,7 @@ class Routes {
   static const String viewOrdersView = '/view-orders-view';
   static const String productDetailsView = '/product-details-view';
   static const String cartView = '/cart-view';
+  static const String orderDetailsView = '/order-details-view';
   static const all = <String>{
     loginView,
     myHomePage,
@@ -45,6 +47,7 @@ class Routes {
     viewOrdersView,
     productDetailsView,
     cartView,
+    orderDetailsView,
   };
 }
 
@@ -62,6 +65,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.viewOrdersView, page: ViewOrdersView),
     RouteDef(Routes.productDetailsView, page: ProductDetailsView),
     RouteDef(Routes.cartView, page: CartView),
+    RouteDef(Routes.orderDetailsView, page: OrderDetailsView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -150,6 +154,18 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    OrderDetailsView: (data) {
+      var args = data.getArgs<OrderDetailsViewArguments>(
+        orElse: () => OrderDetailsViewArguments(),
+      );
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => OrderDetailsView(
+          key: args.key,
+          docId: args.docId,
+        ),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -193,4 +209,11 @@ class ProductDetailsViewArguments {
   final Key? key;
   final Product? product;
   ProductDetailsViewArguments({this.key, this.product});
+}
+
+/// OrderDetailsView arguments holder class
+class OrderDetailsViewArguments {
+  final Key? key;
+  final String? docId;
+  OrderDetailsViewArguments({this.key, this.docId});
 }

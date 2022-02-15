@@ -32,14 +32,6 @@ class StoreService {
           .toList())
       .handleError((err) => logger.e(err.toString()));
 
-  Stream<List<Order>> getAllOrders() => _instance
-      .collection(ordersCollection)
-      .snapshots()
-      .map((querySnapshot) => querySnapshot.docs
-          .map((snapShot) => Order.fromJson(snapShot.data()))
-          .toList())
-      .handleError((err) => logger.e(err.toString()));
-
   void deleteProduct({String? id}) =>
       _instance.collection(productCollection).doc(id).delete();
 
@@ -47,17 +39,4 @@ class StoreService {
       .collection(productCollection)
       .doc(id)
       .set(product!.toJson(), SetOptions(merge: true));
-
-  void storeOrders({Order? order, List<Product>? products}) {
-    DocumentReference document = _instance.collection(ordersCollection).doc();
-    try {
-      document.set(order!.toJson());
-
-      products!.forEach((product) {
-        document.collection("orderDetails").doc().set(product.toJson());
-      });
-    } on StateError catch (err) {
-      throw err.message;
-    }
-  }
 }

@@ -12,12 +12,12 @@ class EditProductViewModel extends BaseViewModel {
       storeService.editProduct(id: id, product: product);
       setBusy(false);
       dialogService.showCustomDialog(
-          variant: DialogType.basic,
+          variant: DialogType.admin,
           title: "Updated Product !",
           mainButtonTitle: "ok");
     } catch (err) {
       dialogService.showCustomDialog(
-          variant: DialogType.basic,
+          variant: DialogType.admin,
           title: err.toString(),
           mainButtonTitle: "ok");
     }
