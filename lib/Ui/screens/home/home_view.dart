@@ -29,24 +29,6 @@ class _MyHomePageState extends State<MyHomePage> {
         DefaultTabController(
           length: 4,
           child: Scaffold(
-            bottomNavigationBar: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              fixedColor: backgroundColor,
-              currentIndex: model.currentBottomIndex,
-              onTap: (value) => model.setBottomIndex(value),
-              elevation: 2,
-              iconSize: 30,
-              items: const [
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.person), label: "Person"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.person), label: "Person"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.person), label: "Person"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.person), label: "Person")
-              ],
-            ),
             appBar: AppBar(
               backgroundColor: Colors.white,
               elevation: 0,

@@ -161,7 +161,7 @@ class LoginView extends StatelessWidget {
                               model.setIsAdmin(true);
                             },
                             child: Text(
-                              "I`m an Amin",
+                              "I`m an Admin",
                               textAlign: TextAlign.center,
                               style: GoogleFonts.poppins(
                                   fontSize: 16,

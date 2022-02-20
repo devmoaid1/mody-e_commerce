@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      builder: DevicePreview.appBuilder,
       title: 'Flutter Demo',
       navigatorKey: StackedService.navigatorKey,
       theme: ThemeData(
