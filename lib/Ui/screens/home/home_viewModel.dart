@@ -24,7 +24,7 @@ class HomeViewModel extends BaseViewModel {
   List<Product>? get allProducts => _allProducts;
 
 // getters for state
-  User? get currentUser => _currentUser;
+  User? get currentUser => authService.currentUser;
 
   Stream<List<Product>> get products => _products.stream;
   int get currentTabIndex => _currentTabIndex;
@@ -51,7 +51,7 @@ class HomeViewModel extends BaseViewModel {
   }
 
   void init() {
-    getUser();
+    // getUser();
     getAllProducts();
   }
 
@@ -81,6 +81,10 @@ class HomeViewModel extends BaseViewModel {
       setBusy(false);
       logger.e(err.toString());
     }
+  }
+
+  void navigateToLoginScreen() {
+    navigationService.replaceWith(Routes.loginView);
   }
 
   void logout() async {

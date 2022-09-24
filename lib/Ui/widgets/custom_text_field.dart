@@ -36,6 +36,7 @@ class CustomFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
+      cursorColor: backgroundColor,
       onChanged: onChanged,
       name: name.toString(),
       obscureText: obsecureText,
@@ -70,7 +71,7 @@ class CustomFormField extends StatelessWidget {
         filled: true,
         prefixIcon: Icon(
           prefix,
-          color: backgroundColor,
+          color: hintColor,
         ),
       ),
     );

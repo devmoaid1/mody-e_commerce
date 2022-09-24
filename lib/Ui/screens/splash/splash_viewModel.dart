@@ -6,8 +6,20 @@ import 'package:stacked/stacked.dart';
 import '../../../app/app.router.dart';
 
 class SplashViewModel extends BaseViewModel {
+  void getUser() {
+    setBusy(true);
+    try {
+      authService.getCurrentUser();
+      setBusy(false);
+    } catch (err) {
+      setBusy(false);
+      logger.e(err.toString());
+    }
+  }
+
   Future<void> init() async {
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 4), () {
+      getUser();
       navigationService.replaceWith(Routes.myHomePage);
     });
   }

@@ -53,9 +53,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 5),
                   child: GestureDetector(
-                      onTap: () => model.logout(),
+                      onTap: () {
+                        if (authService.isLoggedIn) {
+                          model.logout();
+                        } else {
+                          model.navigateToLoginScreen();
+                        }
+                      },
                       child: SvgPicture.asset(
-                        Assets.logoutIcon,
+                        authService.isLoggedIn
+                            ? Assets.logoutIcon
+                            : Assets.loginIcon,
                         color: Colors.grey[700],
                         height: 30,
                       )),

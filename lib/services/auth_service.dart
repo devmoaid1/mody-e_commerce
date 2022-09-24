@@ -1,19 +1,30 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
-import 'package:mody_ecommerce/app/constants/constants.dart';
+import 'package:stacked/stacked.dart';
 
-class AuthService {
+class AuthService extends BaseViewModel {
   final Logger logger = Logger();
   final FirebaseAuth _instance = FirebaseAuth.instance;
+
+  User? _currentUser;
+
+  bool _isLoggedIn = false;
+
+  User? get currentUser => _currentUser;
+  bool get isLoggedIn => _isLoggedIn;
 
   Future<UserCredential> login({String? email, String? password}) async {
     try {
       UserCredential loginResult = await _instance.signInWithEmailAndPassword(
           email: email.toString(), password: password.toString());
+      _isLoggedIn = true;
 
+      notifyListeners();
       return loginResult;
     } on FirebaseAuthException catch (e) {
       logger.e("error", e.message, e.stackTrace);
+      _isLoggedIn = false;
+      notifyListeners();
       throw e.message.toString();
     }
   }
@@ -33,6 +44,8 @@ class AuthService {
   Future<void> logout() async {
     try {
       await _instance.signOut();
+      _isLoggedIn = false;
+      notifyListeners();
     } on FirebaseAuthException catch (e) {
       logger.e("error", e.message, e.stackTrace);
       throw e.message.toString();
@@ -40,14 +53,18 @@ class AuthService {
   }
 
   User? getCurrentUser() {
-    User? currentUser;
     _instance.authStateChanges().listen((user) {
-      currentUser = user;
-      logger.i(currentUser);
+      if (user != null) {
+        _currentUser = user;
+        _isLoggedIn = true;
+        logger.i(currentUser);
+      } else {
+        _isLoggedIn = false;
+      }
     }).onError((err) {
       logger.e(err.toString(), "error in getting current user");
     });
-
-    return currentUser;
+    notifyListeners();
+    return _currentUser;
   }
 }

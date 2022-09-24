@@ -21,7 +21,7 @@ class LoginView extends StatelessWidget {
       viewModelBuilder: () => LoginViewModel(),
       builder: (context, model, child) => Scaffold(
         resizeToAvoidBottomInset: true,
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.white,
         body: ModalProgressHUD(
           progressIndicator: const CircularProgressIndicator(
             color: backgroundColor,
@@ -65,6 +65,10 @@ class LoginView extends StatelessWidget {
                               hint: "Enter your Email",
                               name: "email",
                               keyboard: TextInputType.emailAddress,
+                              hintColor:
+                                  const Color.fromARGB(255, 158, 155, 155),
+                              filledColor:
+                                  const Color.fromARGB(255, 224, 229, 230),
                               prefix: Icons.email,
                               validator: FormBuilderValidators.compose([
                                 FormBuilderValidators.required(context),
@@ -79,6 +83,10 @@ class LoginView extends StatelessWidget {
                               name: "password",
                               obsecureText: true,
                               prefix: Icons.lock,
+                              hintColor:
+                                  const Color.fromARGB(255, 158, 155, 155),
+                              filledColor:
+                                  const Color.fromARGB(255, 224, 229, 230),
                               validator: FormBuilderValidators.compose([
                                 FormBuilderValidators.required(context),
                               ]),
@@ -131,7 +139,7 @@ class LoginView extends StatelessWidget {
                         style: GoogleFonts.poppins(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                            color: Colors.black),
                       ),
                       TextButton(
                           onPressed: () {
@@ -142,7 +150,7 @@ class LoginView extends StatelessWidget {
                             style: GoogleFonts.poppins(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black),
+                                color: backgroundColor),
                           ))
                     ],
                   ),
@@ -162,8 +170,8 @@ class LoginView extends StatelessWidget {
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   color: model.isAdmin
-                                      ? backgroundColor
-                                      : Colors.white),
+                                      ? Colors.white
+                                      : backgroundColor),
                             )),
                       ),
                       Expanded(
@@ -177,8 +185,8 @@ class LoginView extends StatelessWidget {
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   color: model.isAdmin
-                                      ? Colors.white
-                                      : backgroundColor),
+                                      ? backgroundColor
+                                      : Colors.white),
                             )),
                       )
                     ],
