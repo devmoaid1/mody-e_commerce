@@ -8,7 +8,7 @@ import 'package:stacked/stacked.dart';
 import '../home_viewModel.dart';
 
 class JacketView extends ViewModelWidget<HomeViewModel> {
-  JacketView({Key? key}) : super(key: key);
+  const JacketView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
@@ -19,11 +19,11 @@ class JacketView extends ViewModelWidget<HomeViewModel> {
             List<Product>? products = snapshot.data;
 
             products!.clear();
-            viewModel.allProducts!.forEach((product) {
+            for (var product in viewModel.allProducts!) {
               if (product.category == jacketCategory) {
                 products.add(product);
               }
-            });
+            }
 
             return GridView.builder(
                 shrinkWrap: true,
@@ -51,7 +51,7 @@ class JacketView extends ViewModelWidget<HomeViewModel> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
+                            SizedBox(
                               height: screenHeightPercentage(context,
                                   percentage: 0.27),
                               width: screenWidth(context),

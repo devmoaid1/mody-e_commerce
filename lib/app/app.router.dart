@@ -21,11 +21,13 @@ import '../Ui/screens/home/home_view.dart';
 import '../Ui/screens/manage_product/manage_product_view.dart';
 import '../Ui/screens/order_details/order_details_view.dart';
 import '../Ui/screens/product_details/product_details_view.dart';
+import '../Ui/screens/splash/splash_view.dart';
 import '../Ui/screens/view_orders/view_orders_view.dart';
 import '../models/product.dart';
 
 class Routes {
-  static const String loginView = '/';
+  static const String splashScreen = '/';
+  static const String loginView = '/login-view';
   static const String myHomePage = '/my-home-page';
   static const String signUpView = '/sign-up-view';
   static const String adminHomePage = '/admin-home-page';
@@ -37,6 +39,7 @@ class Routes {
   static const String cartView = '/cart-view';
   static const String orderDetailsView = '/order-details-view';
   static const all = <String>{
+    splashScreen,
     loginView,
     myHomePage,
     signUpView,
@@ -55,6 +58,7 @@ class StackedRouter extends RouterBase {
   @override
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
+    RouteDef(Routes.splashScreen, page: SplashScreen),
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.myHomePage, page: MyHomePage),
     RouteDef(Routes.signUpView, page: SignUpView),
@@ -70,6 +74,12 @@ class StackedRouter extends RouterBase {
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, StackedRouteFactory>{
+    SplashScreen: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const SplashScreen(),
+        settings: data,
+      );
+    },
     LoginView: (data) {
       var args = data.getArgs<LoginViewArguments>(
         orElse: () => LoginViewArguments(),

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:mody_ecommerce/app/constants/constants.dart';
-import 'package:mody_ecommerce/models/order.dart';
 import 'package:mody_ecommerce/models/product.dart';
 
 class StoreService {

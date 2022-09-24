@@ -3,7 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mody_ecommerce/Ui/screens/home/home_viewModel.dart';
 import 'package:mody_ecommerce/Ui/utilities/app_colors.dart';
 import 'package:mody_ecommerce/Ui/utilities/screen_sizes.dart';
+import 'package:mody_ecommerce/app/constants/assets.dart';
 import 'package:mody_ecommerce/app/constants/constants.dart';
+
 
 import 'package:stacked/stacked.dart';
 
@@ -25,13 +27,22 @@ class _MyHomePageState extends State<MyHomePage> {
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
       onModelReady: (model) => model.init(),
-      builder: (context, model, _) => Stack(children: [
-        DefaultTabController(
-          length: 4,
-          child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.white,
+      builder: (context, model, _) => DefaultTabController(
+        length: 4,
+        child: Scaffold(
+          appBar: AppBar(
+              leadingWidth: screenWidthPercentage(context, percentage: 0.2),
+              leading: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: Image.asset(
+                  Assets.modyIcon,
+                  fit: BoxFit.fill,
+                ),
+              ),
+              actionsIconTheme: const IconThemeData(color: Colors.black),
               elevation: 0,
+              backgroundColor: Colors.transparent,
               bottom: TabBar(
                 indicatorColor: backgroundColor,
                 onTap: (value) => model.setTabIndex(value),
@@ -82,58 +93,32 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 ],
               ),
-            ),
-            body: TabBarView(
-              children: [
-                JacketView(),
-                const ProductView(
-                  category: shoesCategory,
-                ),
-                const ProductView(
-                  category: tShirtsCategory,
-                ),
-                const ProductView(
-                  category: trousersCategory,
-                ),
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(25, 20, 15, 10),
-          child: Container(
-            height: screenHeightPercentage(context, percentage: 0.1),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Material(
-                    elevation: 0,
-                    borderOnForeground: false,
-                    child: Text(
-                      "DISCOVER",
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w700, fontSize: 25),
-                    )),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      GestureDetector(
-                          onTap: () => model.navigateToCartScreen(),
-                          child: Container(
-                              margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                              child: const Icon(Icons.shopping_cart))),
-                    ],
-                  ),
-                ),
+              actions: [
+                GestureDetector(
+                    onTap: () => model.navigateToCartScreen(),
+                    child: Container(
+                        margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                        child: const  )),
                 GestureDetector(
                     onTap: () => model.logout(),
-                    child: const Icon(Icons.logout))
-              ],
-            ),
+                    child: const SvgPicture.asset(Assets.logoutIcon))
+              ]),
+          body: const TabBarView(
+            children: [
+              JacketView(),
+              ProductView(
+                category: shoesCategory,
+              ),
+              ProductView(
+                category: tShirtsCategory,
+              ),
+              ProductView(
+                category: trousersCategory,
+              ),
+            ],
           ),
-        )
-      ]),
+        ),
+      ),
     );
   }
 }

@@ -10,6 +10,8 @@ import 'package:mody_ecommerce/Ui/utilities/screen_sizes.dart';
 import 'package:mody_ecommerce/Ui/widgets/custom_text_field.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../app/constants/assets.dart';
+
 class LoginView extends StatelessWidget {
   LoginView({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormBuilderState>();
@@ -34,27 +36,20 @@ class LoginView extends StatelessWidget {
                   //logo
                   Padding(
                     padding: const EdgeInsets.only(top: 60.0),
-                    child: Container(
+                    child: SizedBox(
                       // color: Colors.blue,
                       height: screenHeight(context) * 0.25,
-                      child: Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 80,
-                              child: const Image(
-                                fit: BoxFit.fill,
-                                image: AssetImage("assets/icons/buyIcon.png"),
-                              ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const [
+                          SizedBox(
+                            height: 80,
+                            child: Image(
+                              fit: BoxFit.fill,
+                              image: AssetImage(Assets.modyIcon),
                             ),
-                            Text("Buy It!",
-                                style: GoogleFonts.pacifico(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w700,
-                                    fontStyle: FontStyle.italic))
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -92,7 +87,7 @@ class LoginView extends StatelessWidget {
                           SizedBox(
                             height: screenHeight(context) * 0.05,
                           ),
-                          Container(
+                          SizedBox(
                             width: screenWidth(context),
                             child: TextButton(
                               onPressed: () {
