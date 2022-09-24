@@ -1,5 +1,7 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:mody_ecommerce/Ui/screens/product_details/product_details_viewModel.dart';
 import 'package:mody_ecommerce/Ui/screens/product_details/widgets/product_details_sheet.dart';
@@ -49,12 +51,34 @@ class ProductDetailsView extends StatelessWidget {
                           },
                         ),
                         GestureDetector(
-                            onTap: () => model.navigateToCartScreen(),
+                          onTap: () => model.navigateToCartScreen(),
+                          child: Badge(
+                            badgeColor: model.cartItems!.isNotEmpty
+                                ? Colors.red
+                                : Colors.transparent,
+                            elevation: 0,
+                            position: BadgePosition.topEnd(),
+                            padding: const EdgeInsets.all(8),
+                            badgeContent: model.cartItems!.isNotEmpty
+                                ? Container(
+                                    child: Center(
+                                      child: Text(
+                                        model.cartItems!.length.toString(),
+                                        style: GoogleFonts.poppins(
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    color: Colors.transparent,
+                                  ),
                             child: SvgPicture.asset(
                               Assets.cartIcon,
                               height: 30,
                               color: Colors.grey[700],
-                            ))
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   )

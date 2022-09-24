@@ -10,7 +10,7 @@ class ProductDetailsViewModel extends BaseViewModel {
 
   int get quantity => _quantity;
 
-  List<Product> _cartItems = [];
+  final List<Product> _cartItems = [];
 
   List<Product>? get cartItems => _cartItems;
 
@@ -82,22 +82,33 @@ class ProductDetailsViewModel extends BaseViewModel {
 
   int calculateTotalPrice({List<Product>? products}) {
     int total = 0;
-    products!.forEach((element) {
+    for (var element in products!) {
       total += element.productQuantity! * element.productPrice!.toInt();
-    });
+    }
     return total;
   }
 
-  void placeOrder({Order? order, List<Product>? products}) {
+  Future<void> placeOrder({Order? order, List<Product>? products}) async {
     setBusy(true);
     try {
-      orderService.storeOrders(order: order, products: products);
-      setBusy(false);
-      navigationService.back();
-      dialogService.showCustomDialog(
-          variant: DialogType.basic,
-          title: "Order Succes !",
-          mainButtonTitle: "ok");
+      if (authService.isLoggedIn) {
+        orderService.storeOrders(order: order, products: products);
+        setBusy(false);
+        navigationService.back();
+        dialogService.showCustomDialog(
+            variant: DialogType.basic,
+            title: "Order Succes !",
+            mainButtonTitle: "ok");
+      } else {
+        final result = await dialogService.showCustomDialog(
+            variant: DialogType.basic,
+            title: "You are not logged in ...log in to make order",
+            mainButtonTitle: "Login");
+
+        if (result!.confirmed) {
+          navigationService.navigateTo(Routes.loginView);
+        }
+      }
     } catch (e) {
       logger.e(e.toString());
       dialogService.showCustomDialog(

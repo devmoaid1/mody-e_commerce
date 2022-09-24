@@ -19,7 +19,7 @@ class SplashScreen extends StatelessWidget {
             width: screenWidthPercentage(context, percentage: 0.6),
             child: const Image(
               fit: BoxFit.fill,
-              image: AssetImage(Assets.modyIcon),
+              image: AssetImage(Assets.modyIconWord),
             ),
           ),
         ),

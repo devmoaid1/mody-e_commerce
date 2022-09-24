@@ -92,7 +92,7 @@ class HomeViewModel extends BaseViewModel {
     try {
       await authService.logout();
       setBusy(false);
-      navigationService.replaceWith(Routes.loginView);
+      notifyListeners();
     } catch (e) {
       setBusy(false);
       await dialogService.showCustomDialog(

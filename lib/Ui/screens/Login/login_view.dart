@@ -37,22 +37,15 @@ class LoginView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 60.0),
                     child: SizedBox(
-                      // color: Colors.blue,
-                      height: screenHeight(context) * 0.25,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
-                          SizedBox(
-                            height: 80,
-                            child: Image(
-                              fit: BoxFit.fill,
-                              image: AssetImage(Assets.modyIcon),
-                            ),
-                          ),
-                        ],
+                      height: screenHeightPercentage(context, percentage: 0.2),
+                      child: const Image(
+                        fit: BoxFit.fill,
+                        image: AssetImage(Assets.modyIcon),
                       ),
                     ),
                   ),
+
+                  verticalSpaceMedium,
 
                   //form
                   FormBuilder(
@@ -131,66 +124,55 @@ class LoginView extends StatelessWidget {
                   SizedBox(
                     height: screenHeight(context) * 0.05,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Dont Have An account ?",
-                        style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            model.navigateToSignUp();
-                          },
-                          child: Text(
-                            "Sign Up",
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Dont Have An account ?",
                             style: GoogleFonts.poppins(
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
-                                color: backgroundColor),
-                          ))
-                    ],
-                  ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: TextButton(
-                            onPressed: () {
-                              model.setIsAdmin(true);
-                            },
-                            child: Text(
-                              "I`m an Admin",
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.poppins(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: model.isAdmin
-                                      ? Colors.white
-                                      : backgroundColor),
-                            )),
+                                color: Colors.black),
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                model.navigateToSignUp();
+                              },
+                              child: Text(
+                                "Sign Up",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: backgroundColor),
+                              ))
+                        ],
                       ),
-                      Expanded(
-                        child: TextButton(
-                            onPressed: () {
-                              model.setIsAdmin(false);
-                            },
-                            child: Text(
-                              "I`m a User",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: model.isAdmin
-                                      ? backgroundColor
-                                      : Colors.white),
-                            )),
-                      )
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: TextButton(
+                                onPressed: () {
+                                  model.isAdmin
+                                      ? model.setIsAdmin(false)
+                                      : model.setIsAdmin(true);
+                                },
+                                child: Text(
+                                  model.isAdmin ? "User?" : "Admin?",
+                                  textAlign: TextAlign.left,
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: backgroundColor),
+                                )),
+                          ),
+                        ],
+                      ),
                     ],
-                  ),
+                  )
                 ],
               ),
             ),

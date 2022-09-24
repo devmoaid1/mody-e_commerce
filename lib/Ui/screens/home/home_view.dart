@@ -1,6 +1,9 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mody_ecommerce/Ui/screens/home/home_viewModel.dart';
 import 'package:mody_ecommerce/Ui/screens/home/widgets/category_card.dart';
+import 'package:mody_ecommerce/Ui/screens/product_details/product_details_viewModel.dart';
 import 'package:mody_ecommerce/Ui/utilities/screen_sizes.dart';
 import 'package:mody_ecommerce/app/constants/assets.dart';
 import 'package:mody_ecommerce/app/constants/constants.dart';
@@ -30,8 +33,9 @@ class _MyHomePageState extends State<MyHomePage> {
           appBar: AppBar(
               leadingWidth: screenWidthPercentage(context, percentage: 0.2),
               leading: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                ),
                 child: Image.asset(
                   Assets.modyIcon,
                   fit: BoxFit.fill,
@@ -44,10 +48,34 @@ class _MyHomePageState extends State<MyHomePage> {
                     onTap: () => model.navigateToCartScreen(),
                     child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 5),
-                      child: SvgPicture.asset(
-                        Assets.cartIcon,
-                        height: 30,
-                        color: Colors.grey[700],
+                      child: ViewModelBuilder<ProductDetailsViewModel>.reactive(
+                        viewModelBuilder: () => productDetailsViewModel,
+                        builder: (context, model, _) => Badge(
+                          badgeColor: model.cartItems!.isNotEmpty
+                              ? Colors.red
+                              : Colors.transparent,
+                          elevation: 0,
+                          position: BadgePosition.topEnd(),
+                          padding: const EdgeInsets.all(8),
+                          badgeContent: model.cartItems!.isNotEmpty
+                              ? Container(
+                                  child: Center(
+                                    child: Text(
+                                      model.cartItems!.length.toString(),
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white),
+                                    ),
+                                  ),
+                                )
+                              : Container(
+                                  color: Colors.transparent,
+                                ),
+                          child: SvgPicture.asset(
+                            Assets.cartIcon,
+                            height: 30,
+                            color: Colors.grey[700],
+                          ),
+                        ),
                       ),
                     )),
                 Container(

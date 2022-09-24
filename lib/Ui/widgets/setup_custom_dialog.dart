@@ -8,6 +8,7 @@ import 'package:mody_ecommerce/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 enum DialogType { basic, admin }
+
 void setupDialogUi() {
   final dialogService = locator<DialogService>();
 
@@ -126,7 +127,7 @@ class _AdminDialog extends StatelessWidget {
                 onTap: () => completer(DialogResponse(confirmed: true)),
                 child: Container(
                   child: request.showIconInMainButton == true
-                      ? Icon(Icons.check_circle)
+                      ? const Icon(Icons.check_circle)
                       : Text(request.mainButtonTitle.toString(),
                           style: GoogleFonts.poppins(
                               fontSize: 16,
