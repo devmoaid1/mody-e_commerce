@@ -56,7 +56,7 @@ class CartList extends ViewModelWidget<ProductDetailsViewModel> {
                   itemBuilder: (context, index) =>
                       CartItemCard(product: viewModel.cartItems![index]))),
           verticalSpaceSmall,
-          Container(
+          SizedBox(
             width: screenWidth(context),
             child: TextButton(
               onPressed: () {

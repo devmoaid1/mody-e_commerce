@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:mody_ecommerce/Ui/screens/product_details/product_details_viewModel.dart';
 import 'package:mody_ecommerce/Ui/screens/product_details/widgets/product_details_sheet.dart';
@@ -8,6 +9,8 @@ import 'package:mody_ecommerce/app/constants/constants.dart';
 
 import 'package:mody_ecommerce/models/product.dart';
 import 'package:stacked/stacked.dart';
+
+import '../../../app/constants/assets.dart';
 
 class ProductDetailsView extends StatelessWidget {
   final Product? product;
@@ -25,7 +28,7 @@ class ProductDetailsView extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Container(
+                  SizedBox(
                       height: screenHeight(context),
                       child: Image(
                         image: AssetImage(product!.productLocation.toString()),
@@ -39,7 +42,7 @@ class ProductDetailsView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-                          child: Icon(Icons.arrow_back_ios),
+                          child: const Icon(Icons.arrow_back_ios),
                           onTap: () {
                             model.resetQuantity();
                             Navigator.pop(context);
@@ -47,7 +50,11 @@ class ProductDetailsView extends StatelessWidget {
                         ),
                         GestureDetector(
                             onTap: () => model.navigateToCartScreen(),
-                            child: Icon(Icons.shopping_cart))
+                            child: SvgPicture.asset(
+                              Assets.cartIcon,
+                              height: 30,
+                              color: Colors.grey[700],
+                            ))
                       ],
                     ),
                   )
@@ -55,9 +62,9 @@ class ProductDetailsView extends StatelessWidget {
               ),
               DraggableScrollableSheet(
                   expand: true,
-                  initialChildSize: 0.6,
+                  initialChildSize: 0.45,
                   maxChildSize: 0.65,
-                  minChildSize: 0.55,
+                  minChildSize: 0.45,
                   builder: (context, controller) => ProductDetailsBottomSheet(
                         controller: controller,
                         product: product,

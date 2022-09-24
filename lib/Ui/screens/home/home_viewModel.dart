@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mody_ecommerce/Ui/widgets/setup_custom_dialog.dart';
 import 'package:mody_ecommerce/app/app.router.dart';
 import 'package:mody_ecommerce/app/constants/constants.dart';
+import 'package:mody_ecommerce/models/category.dart';
 import 'package:mody_ecommerce/models/product.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:stacked/stacked.dart';
@@ -10,8 +11,14 @@ class HomeViewModel extends BaseViewModel {
   User? _currentUser;
   int _currentTabIndex = 0;
   int _currentBottomIndex = 0;
-  BehaviorSubject<List<Product>> _products = BehaviorSubject();
+  final BehaviorSubject<List<Product>> _products = BehaviorSubject();
 
+  final List<Category> _categories = [
+    Category(name: "Jackets", index: 0),
+    Category(name: "Shoes", index: 1),
+    Category(name: "T-Shirts", index: 2),
+    Category(name: "Trousers", index: 3)
+  ];
   List<Product>? _allProducts;
 
   List<Product>? get allProducts => _allProducts;
@@ -22,6 +29,7 @@ class HomeViewModel extends BaseViewModel {
   Stream<List<Product>> get products => _products.stream;
   int get currentTabIndex => _currentTabIndex;
   int get currentBottomIndex => _currentBottomIndex;
+  List<Category> get categories => _categories;
 
   void navigateToProductView(Product product) {
     navigationService.navigateTo(Routes.productDetailsView,

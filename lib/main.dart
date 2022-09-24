@@ -13,5 +13,5 @@ void main() async {
   setupLocator();
   setupDialogUi();
 
-  runApp(const MyApp());
+  runApp(DevicePreview(builder: ((context) => const ModyApp())));
 }

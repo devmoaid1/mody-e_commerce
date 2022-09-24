@@ -64,24 +64,27 @@ class ProductDetailsBottomSheet
                   GestureDetector(
                     onTap: () => viewModel.add(),
                     child: Container(
-                        padding: const EdgeInsets.all(6),
+                        padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
                             color: Colors.grey[300], shape: BoxShape.circle),
                         child: const Center(child: Icon(Icons.add))),
                   ),
                   horizontalSpaceSmall,
-                  Text(
-                    viewModel.quantity.toString(),
-                    style: GoogleFonts.poppins(
-                        fontSize: 60,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Text(
+                      viewModel.quantity.toString(),
+                      style: GoogleFonts.poppins(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black),
+                    ),
                   ),
                   horizontalSpaceSmall,
                   GestureDetector(
                     onTap: () => viewModel.subtract(),
                     child: Container(
-                        padding: const EdgeInsets.all(6),
+                        padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
                             color: Colors.grey[300], shape: BoxShape.circle),
                         child: const Center(child: Icon(Icons.remove))),
@@ -89,7 +92,7 @@ class ProductDetailsBottomSheet
                 ],
               ),
               verticalSpaceTiny,
-              Container(
+              SizedBox(
                 width: screenWidth(context),
                 child: TextButton(
                   onPressed: () {
