@@ -2,7 +2,9 @@
 
 A fully functional e-commerce app built with Flutter and Firebase
 
-
+<h2> Splash </h2>
+ 
+<img src="screenshots/splash.png"></img>
 
 <h2> Login Page </h2>
  
