@@ -7,9 +7,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked/stacked_annotations.dart';
 
 import '../Ui/screens/Login/login_view.dart';
 import '../Ui/screens/Sign_up/sign_up_view.dart';

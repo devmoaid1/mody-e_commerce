@@ -12,8 +12,8 @@ class ModyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'Mody',
+      debugShowCheckedModeBanner: false,
       builder: DevicePreview.appBuilder,
       navigatorKey: StackedService.navigatorKey,
       theme: ThemeData(
